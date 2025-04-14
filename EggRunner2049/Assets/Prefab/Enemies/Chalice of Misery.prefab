@@ -105,6 +105,9 @@ MonoBehaviour:
   _moveSpeed: 1.7
   _healthAmount: 2
   _currentHealth: 0
+  _lootTable:
+  - {fileID: 11400000, guid: f576cb2092a385c438ab0e75efb0b4a6, type: 2}
+  - {fileID: 11400000, guid: 04237d13a131e3249a2c505985c598db, type: 2}
 --- !u!61 &1311292416571642227
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,4 +1,12 @@
+using Mono.Cecil;
 using UnityEngine;
+
+[CreateAssetMenu(fileName = "LootItem", menuName = "Loot/Loot Item")]
+public class LootItem : ScriptableObject
+{
+    public GameObject itemPrefab;
+    [Range(0f, 100f)] public float dropChance; // percentage
+}
 
 public class Enemies : MonoBehaviour
 {
@@ -16,6 +24,8 @@ public class Enemies : MonoBehaviour
     [SerializeField] private int _currentHealth;
     private bool _isAlive;
 
+    [Header("Loot Drop Settings")]
+    [SerializeField] private LootItem[] _lootTable;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -85,8 +95,31 @@ public class Enemies : MonoBehaviour
         _currentHealth--;
         if (_currentHealth <= 0)
         {
+            TryDropLoot();
+
             waveGenerator.OnEnemyKilled();
             Destroy(gameObject);
+        }
+    }
+
+    private void TryDropLoot()
+    {
+        float roll = Random.Range(0f, 100f);
+        float cumulative = 0f;
+
+        for (int i = 0; i < _lootTable.Length; i++)
+        {
+            LootItem loot = _lootTable[i];
+            cumulative += loot.dropChance;
+
+            if (roll <= cumulative)
+            {
+                if(loot.itemPrefab != null)
+                {
+                    Instantiate(loot.itemPrefab, transform.position, Quaternion.identity);
+                }
+                break;
+            }
         }
     }
 }

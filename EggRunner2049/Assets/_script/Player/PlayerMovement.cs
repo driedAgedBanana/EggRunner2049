@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,12 +37,17 @@ public class PlayerMovement : MonoBehaviour
     private bool _canDash = true;
     private bool _isDashing = false;
 
+    [Header("Text and UI")]
+    public TextMeshProUGUI currentEggs;
+
     private void Start()
     {
         _isAlive = true;
 
         _playerHealth = numberOfHearts;
         _currentHealth = _playerHealth;
+
+        currentEggs.text = "Current egg: 0";
 
         if (trailRenderer != null)
             trailRenderer.emitting = false;
@@ -133,6 +139,12 @@ public class PlayerMovement : MonoBehaviour
     public void CollectExtraLifeEgg(int requiredEggs)
     {
         _extraLifeEggsCollected++;
+        currentEggs.text = "Current egg: " + _extraLifeEggsCollected;
+
+        if (_extraLifeEggsCollected > 1)
+        {
+            currentEggs.text = "Current eggs: " + _extraLifeEggsCollected;
+        }
 
         if (_extraLifeEggsCollected >= requiredEggs)
         {
