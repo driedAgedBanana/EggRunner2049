@@ -102,16 +102,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15d7a40ddc846db44a5d05a187773d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 4.5
+  _moveSpeed: 5.5
   _healthAmount: 1
   _currentHealth: 0
   _lootTable:
   - itemPrefab: {fileID: 5733949892729041999, guid: e2db23d63085bb34ba6cb37742ddfe7e, type: 3}
     dropChance: 10
   - itemPrefab: {fileID: 4418280622127327921, guid: 30d44ddf36d3d1f41b7b4d6fa92e8664, type: 3}
-    dropChance: 3
+    dropChance: 1
   - itemPrefab: {fileID: 989693869235881160, guid: 81ce5143ad783ec4a9c531d041b48dcd, type: 3}
-    dropChance: 3
+    dropChance: 1
 --- !u!61 &1311292416571642227
 BoxCollider2D:
   m_ObjectHideFlags: 0
