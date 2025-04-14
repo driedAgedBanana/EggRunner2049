@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Enemies : MonoBehaviour
 {
+    private WaveGenerator waveGenerator;
+
     private Transform _player;
     private Rigidbody2D _rb2D;
     private Vector3 _direction;
@@ -73,11 +75,17 @@ public class Enemies : MonoBehaviour
         }
     }
 
+    public void Init(WaveGenerator manager)
+    {
+        waveGenerator = manager;
+    }
+
     private void TakeDamageAndDie()
     {
         _currentHealth--;
         if (_currentHealth <= 0)
         {
+            waveGenerator.OnEnemyKilled();
             Destroy(gameObject);
         }
     }
