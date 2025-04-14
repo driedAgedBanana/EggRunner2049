@@ -106,9 +106,12 @@ MonoBehaviour:
   _healthAmount: 2
   _currentHealth: 0
   _lootTable:
-  - {fileID: 11400000, guid: f576cb2092a385c438ab0e75efb0b4a6, type: 2}
-  - {fileID: 11400000, guid: 04237d13a131e3249a2c505985c598db, type: 2}
-  - {fileID: 11400000, guid: cc7d28cd57d422941ba8a4f9c10338b0, type: 2}
+  - itemPrefab: {fileID: 5733949892729041999, guid: e2db23d63085bb34ba6cb37742ddfe7e, type: 3}
+    dropChance: 10
+  - itemPrefab: {fileID: 4418280622127327921, guid: 30d44ddf36d3d1f41b7b4d6fa92e8664, type: 3}
+    dropChance: 3
+  - itemPrefab: {fileID: 989693869235881160, guid: 81ce5143ad783ec4a9c531d041b48dcd, type: 3}
+    dropChance: 3
 --- !u!61 &1311292416571642227
 BoxCollider2D:
   m_ObjectHideFlags: 0

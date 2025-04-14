@@ -1,10 +1,10 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LootItem", menuName = "Loot/Loot Item")]
-public class LootItem : ScriptableObject
+[System.Serializable]
+public class LootDrop
 {
     public GameObject itemPrefab;
-    [Range(0f, 100f)] public float dropChance; // percentage
+    [Range(0f, 100f)] public float dropChance;
 }
 
 public class Enemies : MonoBehaviour
@@ -24,7 +24,8 @@ public class Enemies : MonoBehaviour
     private bool _isAlive;
 
     [Header("Loot Drop Settings")]
-    [SerializeField] private LootItem[] _lootTable;
+    [SerializeField] private LootDrop[] _lootTable;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,6 +45,8 @@ public class Enemies : MonoBehaviour
         {
             Debug.LogWarning("Player not found! Make sure the player object is tagged 'Player'");
         }
+
+        Debug.Log($"Enemy {_lootTable.Length} loot items loaded.");
     }
 
     // Update is called once per frame
@@ -108,7 +111,7 @@ public class Enemies : MonoBehaviour
 
         for (int i = 0; i < _lootTable.Length; i++)
         {
-            LootItem loot = _lootTable[i];
+            LootDrop loot = _lootTable[i];
             cumulative += loot.dropChance;
 
             if (roll <= cumulative)
