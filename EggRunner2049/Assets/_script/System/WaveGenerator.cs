@@ -45,7 +45,7 @@ public class WaveGenerator : MonoBehaviour
         if (waveText != null)
         {
             Debug.Log("Call wave!");
-            waveText.text = "Wave: " + 1;
+            waveText.text = "Impulsus: " + 1;
         }
     }
 
@@ -86,7 +86,7 @@ public class WaveGenerator : MonoBehaviour
         if (waveText != null)
         {
             Debug.Log("Call wave!");
-            waveText.text = "Wave: " + _currentWaveInt;
+            waveText.text = "Impulsus: " + _currentWaveInt;
         }
 
         _isSpawning = false;

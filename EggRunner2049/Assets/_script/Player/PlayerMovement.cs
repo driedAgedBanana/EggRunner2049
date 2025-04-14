@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         currentCoolDown = dashCooldown;
         wingedBoots.gameObject.SetActive(false);
 
-        currentEggs.text = "Current egg: 0";
+        currentEggs.text = "Ovum Tenes: 0";
 
         if (trailRenderer != null)
             trailRenderer.emitting = false;
@@ -124,14 +124,16 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    private void TakeDamageAndDie()
+    public void TakeDamageAndDie()
     {
         _currentHealth--;
 
-        if (_currentHealth <= 0)
+        if (_currentHealth <= -1)
         {
-            Destroy(gameObject);
+            _isAlive = false;
+            GameManager.Instance.ShowDeathScreen();
         }
+
     }
 
     public void HealPlayer(int amount)
@@ -155,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _extraLifeEggsCollected++;
-        currentEggs.text = _extraLifeEggsCollected == 1 ? "Current egg: 1" : "Current eggs: " + _extraLifeEggsCollected;
+        currentEggs.text = _extraLifeEggsCollected == 1 ? "Ovum Tenes: 1" : "Ova Tenes: " + _extraLifeEggsCollected;
 
         if (_extraLifeEggsCollected >= requiredEggs)
         {
