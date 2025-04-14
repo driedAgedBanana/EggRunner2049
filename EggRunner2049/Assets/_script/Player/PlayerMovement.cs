@@ -33,9 +33,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private TrailRenderer trailRenderer;
+    private float currentCoolDown;
 
     private bool _canDash = true;
     private bool _isDashing = false;
+
+    [SerializeField] private int _extraDashEggsCollected = 0;
+    [SerializeField] private float _newDashCoolDown = 0.5f;
 
     [Header("Text and UI")]
     public TextMeshProUGUI currentEggs;
@@ -46,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         _playerHealth = numberOfHearts;
         _currentHealth = _playerHealth;
+
+        currentCoolDown = dashCooldown;
 
         currentEggs.text = "Current egg: 0";
 
@@ -159,6 +165,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void ReduceCoolDownDashEgg(int requiredEggs)
+    {
+        _extraDashEggsCollected++;
+
+        if(_extraDashEggsCollected >= requiredEggs)
+        {
+            currentCoolDown = _newDashCoolDown;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Enemy"))
@@ -190,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
             trailRenderer.emitting = false;
         trailRenderer.Clear();
 
-        yield return new WaitForSeconds(dashCooldown);
+        yield return new WaitForSeconds(currentCoolDown);
         _canDash = true;
     }
 

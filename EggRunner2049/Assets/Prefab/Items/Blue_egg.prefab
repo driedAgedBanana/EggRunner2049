@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2508663060379634532}
   - component: {fileID: 7100282613463962742}
   - component: {fileID: 6980167166039091329}
+  - component: {fileID: -8057139744833067765}
   m_Layer: 0
   m_Name: Blue_egg
   m_TagString: Item
@@ -134,3 +135,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.99, y: 1.19}
   m_EdgeRadius: 0
+--- !u!114 &-8057139744833067765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989693869235881160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4a68cdb88c76d6499bdf4434e1c6cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eggType: 2
+  healAmount: 1
+  healthEggNeeded: 3
+  coolDownEggNeeded: 4

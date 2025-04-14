@@ -4,13 +4,15 @@ public enum EggType
 {
     Heal,
     ExtraLife,
+    ReduceCoolDown,
     // Future types like: SpeedBoost, Explode, Shield, etc.
 }
 public class Collectibles : MonoBehaviour
 {
     public EggType eggType; // Set this in Inspector
     public int healAmount = 1;
-    public int eggNeeded = 3;
+    public int healthEggNeeded = 3;
+    public int coolDownEggNeeded = 4;
 
     private int _currentEgg;
 
@@ -27,7 +29,10 @@ public class Collectibles : MonoBehaviour
                         player.HealPlayer(healAmount);
                         break;
                     case EggType.ExtraLife:
-                        player.CollectExtraLifeEgg(eggNeeded);
+                        player.CollectExtraLifeEgg(healthEggNeeded);
+                        break;
+                    case EggType.ReduceCoolDown:
+                        player.ReduceCoolDownDashEgg(coolDownEggNeeded);
                         break;
                     // case EggType.SpeedBoost:
                     //     player.ApplySpeedBoost();
