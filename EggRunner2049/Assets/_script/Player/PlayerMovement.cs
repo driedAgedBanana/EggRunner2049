@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    [SerializeField] private int _extraLifeEggsCollected = 0;
+    [SerializeField] private int _maxHealth = 10;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashForce = 10f;
@@ -114,6 +116,34 @@ public class PlayerMovement : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void HealPlayer(int amount)
+    {
+        if (_currentHealth < numberOfHearts)
+        {
+            _currentHealth += amount;
+
+            if (_currentHealth > numberOfHearts)
+                _currentHealth = numberOfHearts;
+        }
+    }
+
+    public void CollectExtraLifeEgg(int requiredEggs)
+    {
+        _extraLifeEggsCollected++;
+
+        if (_extraLifeEggsCollected >= requiredEggs)
+        {
+            if (_playerHealth < _maxHealth)
+            {
+                _playerHealth++;
+                _currentHealth = _playerHealth;
+                numberOfHearts = _playerHealth;
+            }
+
+            _extraLifeEggsCollected = 0; // Reset after gain
         }
     }
 
