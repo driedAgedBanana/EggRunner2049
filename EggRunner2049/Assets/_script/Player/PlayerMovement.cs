@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     private bool _canDash = true;
     private bool _isDashing = false;
 
+    public Image wingedBoots;
+
     [SerializeField] private int _extraDashEggsCollected = 0;
     [SerializeField] private float _newDashCoolDown = 0.5f;
 
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         _currentHealth = _playerHealth;
 
         currentCoolDown = dashCooldown;
+        wingedBoots.gameObject.SetActive(false);
 
         currentEggs.text = "Current egg: 0";
 
@@ -144,26 +147,31 @@ public class PlayerMovement : MonoBehaviour
 
     public void CollectExtraLifeEgg(int requiredEggs)
     {
-        _extraLifeEggsCollected++;
-        currentEggs.text = "Current egg: " + _extraLifeEggsCollected;
-
-        if (_extraLifeEggsCollected > 1)
+        // If we've already hit max health, hide UI and return early
+        if (_playerHealth >= _maxHealth)
         {
-            currentEggs.text = "Current eggs: " + _extraLifeEggsCollected;
+            currentEggs.gameObject.SetActive(false);
+            return;
         }
+
+        _extraLifeEggsCollected++;
+        currentEggs.text = _extraLifeEggsCollected == 1 ? "Current egg: 1" : "Current eggs: " + _extraLifeEggsCollected;
 
         if (_extraLifeEggsCollected >= requiredEggs)
         {
-            if (_playerHealth < _maxHealth)
-            {
-                _playerHealth++;
-                _currentHealth = _playerHealth;
-                numberOfHearts = _playerHealth;
-            }
+            _playerHealth++;
+            _currentHealth = _playerHealth;
+            numberOfHearts = _playerHealth;
+            _extraLifeEggsCollected = 0;
 
-            _extraLifeEggsCollected = 0; // Reset after gain
+            // If we've just reached max health, hide the UI
+            if (_playerHealth >= _maxHealth)
+            {
+                currentEggs.gameObject.SetActive(false);
+            }
         }
     }
+
 
     public void ReduceCoolDownDashEgg(int requiredEggs)
     {
@@ -172,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
         if(_extraDashEggsCollected >= requiredEggs)
         {
             currentCoolDown = _newDashCoolDown;
+            wingedBoots.gameObject.SetActive(true);
         }
     }
 
