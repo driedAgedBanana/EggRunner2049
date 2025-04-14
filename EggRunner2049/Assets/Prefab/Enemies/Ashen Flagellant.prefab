@@ -106,9 +106,9 @@ MonoBehaviour:
   _healthAmount: 4
   _currentHealth: 0
   _lootTable:
-  - itemPrefab: {fileID: 5733949892729041999, guid: e2db23d63085bb34ba6cb37742ddfe7e, type: 3}
-    dropChance: 10
   - itemPrefab: {fileID: 4418280622127327921, guid: 30d44ddf36d3d1f41b7b4d6fa92e8664, type: 3}
+    dropChance: 15
+  - itemPrefab: {fileID: 5733949892729041999, guid: e2db23d63085bb34ba6cb37742ddfe7e, type: 3}
     dropChance: 1
   - itemPrefab: {fileID: 989693869235881160, guid: 81ce5143ad783ec4a9c531d041b48dcd, type: 3}
     dropChance: 1

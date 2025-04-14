@@ -731,7 +731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3226737443922738272, guid: 637f77211c59bb346b624e31dd819653, type: 3}
       propertyPath: dashDuration
-      value: 0.1
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 3226737443922738272, guid: 637f77211c59bb346b624e31dd819653, type: 3}
       propertyPath: _playerHealth
