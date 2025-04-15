@@ -175,4 +175,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d0b7fe2673db5f418f2a5202cc9041c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletTime: 3
+  bulletTime: 0.6

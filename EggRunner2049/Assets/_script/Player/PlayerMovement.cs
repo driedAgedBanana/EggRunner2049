@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int _maxHealth = 10;
 
     [Header("Dash Settings")]
+    public Image dashIcon;
     [SerializeField] private float dashForce = 10f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentCoolDown = dashCooldown;
         wingedBoots.gameObject.SetActive(false);
+        dashIcon.gameObject.SetActive(true);
         teleportImage.gameObject.SetActive(true);
 
         _singleMode = true;
@@ -122,12 +124,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isAlive) return;
 
-        _rb2D.linearVelocity = new Vector2(_moveDirection.x * _moveSpeed, _moveDirection.y * _moveSpeed);
+        _rb2D.linearVelocity = _moveDirection * _moveSpeed;
 
-        Vector2 aimDirection = _mousePosition - _rb2D.position;
-        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
-        _rb2D.rotation = aimAngle;
+        if (!_isDashing)
+        {
+            Vector2 aimDirection = _mousePosition - _rb2D.position;
+            float targetAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - 90f;
+            float smoothedAngle = Mathf.LerpAngle(_rb2D.rotation, targetAngle, Time.fixedDeltaTime * 10f);
+            _rb2D.MoveRotation(smoothedAngle);
+        }
+
     }
+
 
     private void CheckHealthHeart()
     {
@@ -241,6 +249,7 @@ public class PlayerMovement : MonoBehaviour
         float originalSpeed = _moveSpeed;
         _moveSpeed = dashForce;
 
+        dashIcon.gameObject.SetActive(false);
         yield return new WaitForSeconds(dashDuration);
 
         // Reset speed and trail
@@ -253,6 +262,7 @@ public class PlayerMovement : MonoBehaviour
 
         yield return new WaitForSeconds(currentCoolDown);
         _canDash = true;
+        dashIcon.gameObject.SetActive(true);
     }
 
     public void CancelDash()
