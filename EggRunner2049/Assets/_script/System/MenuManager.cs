@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public GameObject WelcomeScene;
     public GameObject MainScene;
     public GameObject TutorialAsk;
+    public GameObject ForceTutorial;
     public GameObject TutorialPanel;
 
     private bool _hasStarted = false;
@@ -17,6 +18,7 @@ public class MenuManager : MonoBehaviour
         WelcomeScene.SetActive(true);
         MainScene.SetActive(false);
         TutorialAsk.SetActive(false);
+        ForceTutorial.SetActive(false);
         TutorialPanel.SetActive(false);
     }
 
@@ -36,6 +38,7 @@ public class MenuManager : MonoBehaviour
         WelcomeScene.SetActive(false);
         MainScene.SetActive(false);
         TutorialPanel.SetActive(false);
+        ForceTutorial.SetActive(false);
         TutorialAsk.SetActive(true);
     }
 
@@ -44,7 +47,17 @@ public class MenuManager : MonoBehaviour
         WelcomeScene.SetActive(false);
         MainScene.SetActive(false);
         TutorialAsk.SetActive(false);
+        ForceTutorial.SetActive(false);
         TutorialPanel.SetActive(true);
+    }
+
+    public void ToForceTutorial()
+    {
+        WelcomeScene.SetActive(false);
+        MainScene.SetActive(false);
+        TutorialAsk.SetActive(false);
+        ForceTutorial.SetActive(true);
+        TutorialPanel.SetActive(false);
     }
 
     public void BackToMenu()
