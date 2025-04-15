@@ -45,6 +45,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         _player.enabled = false;
         _isPaused = true;
+
+        _player.CancelDash();
+
+        if (_player.trailRenderer != null)
+        {
+            _player.trailRenderer.emitting = false;
+            _player.trailRenderer.Clear();
+        }
+
     }
     public void RestartScene()
     {
@@ -69,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void BackToMenu()
     {
+        _player.CancelDash();
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MenuScene");
     }
 

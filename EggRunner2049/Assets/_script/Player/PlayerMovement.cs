@@ -32,16 +32,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashForce = 10f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private TrailRenderer trailRenderer;
+    public TrailRenderer trailRenderer;
     private float currentCoolDown;
 
     private bool _canDash = true;
     private bool _isDashing = false;
+    private Coroutine _dashCoroutine;
 
     public Image wingedBoots;
 
     [SerializeField] private int _extraDashEggsCollected = 0;
     [SerializeField] private float _newDashCoolDown = 0.5f;
+
+    [Header("Teleportation")]
+    [SerializeField] private Teleportation teleport;
+    private bool _canTeleport = true;
+    private bool _isTeleporting = false;
+    [SerializeField] private float _teleportCoolDown;
+    public Image teleportImage;
+    private Coroutine _teleportCoroutine;
 
     [Header("Text and UI")]
     public TextMeshProUGUI currentEggs;
@@ -55,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
         currentCoolDown = dashCooldown;
         wingedBoots.gameObject.SetActive(false);
+        teleportImage.gameObject.SetActive(true);
 
         currentEggs.text = "Ovum Tenes: 0";
 
@@ -79,7 +89,20 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && _canDash)
         {
-            StartCoroutine(Dash());
+            if(_dashCoroutine != null)
+            {
+                StopCoroutine(_dashCoroutine);
+            }
+            _dashCoroutine = StartCoroutine(Dash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.T) && _canTeleport)
+        {
+            if(_teleportCoroutine != null)
+            {
+                StopCoroutine(_teleportCoroutine);
+            }
+            _teleportCoroutine = StartCoroutine(Teleport());
         }
 
         CheckHealthHeart();
@@ -220,5 +243,58 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(currentCoolDown);
         _canDash = true;
     }
+
+    public void CancelDash()
+    {
+        if (_dashCoroutine != null)
+        {
+            StopCoroutine(_dashCoroutine);
+            _dashCoroutine = null;
+        }
+
+        _isDashing = false;
+        _moveSpeed = 5f;
+
+        if (trailRenderer != null)
+        {
+            trailRenderer.emitting = false;
+            trailRenderer.Clear();
+        }
+
+        _canDash = true;
+    }
+
+    private IEnumerator Teleport()
+    {
+        _canTeleport = false;
+        _isTeleporting = true;
+
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Color originalColor = sr.color;
+
+        // Fade out
+        for (float f = 1f; f >= 0; f -= 0.1f)
+        {
+            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        teleport.TeleportPlayer();
+
+        // Fade in
+        for (float f = 0; f <= 1f; f += 0.1f)
+        {
+            sr.color = new Color(originalColor.r, originalColor.g, originalColor.b, f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        teleportImage.gameObject.SetActive(false);
+        yield return new WaitForSeconds(_teleportCoolDown);
+        teleportImage.gameObject.SetActive(true);
+
+        _canTeleport = true;
+        _isTeleporting = false;
+    }
+
 
 }

@@ -9,12 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3276329965708532206}
+  - component: {fileID: 588658938245282539}
   - component: {fileID: 3226737443922738272}
   - component: {fileID: 7779649482419871813}
   - component: {fileID: 8431577688427535744}
   - component: {fileID: 7751046371029190820}
   - component: {fileID: 3615271070310641324}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -37,6 +38,20 @@ Transform:
   - {fileID: 1177660989390118248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &588658938245282539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937745324647784914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c197de324f8ddd49b99827c39203f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 3276329965708532206}
+  groundZone: {fileID: 0}
 --- !u!114 &3226737443922738272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,8 +67,29 @@ MonoBehaviour:
   _moveSpeed: 5
   _rb2D: {fileID: 8431577688427535744}
   weapon: {fileID: 2521426770891433187}
-  _playerHealth: 5
-  _currentHealth: 0
+  _playerHealth: 3
+  _currentHealth: 3
+  numberOfHearts: 3
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullHeart: {fileID: 21300000, guid: 87def7fe2170df84d81e8d8fecbb2e05, type: 2}
+  emptyHeart: {fileID: 21300000, guid: 1ff92e56c11940649b067ff48a6c3094, type: 2}
+  _extraLifeEggsCollected: 0
+  _maxHealth: 5
+  dashForce: 25
+  dashDuration: 0.15
+  dashCooldown: 1.2
+  trailRenderer: {fileID: 3615271070310641324}
+  wingedBoots: {fileID: 0}
+  _extraDashEggsCollected: 0
+  _newDashCoolDown: 0.3
+  teleport: {fileID: 588658938245282539}
+  _teleportCoolDown: 2
+  currentEggs: {fileID: 0}
 --- !u!212 &7779649482419871813
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -297,7 +333,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6772290935467734553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +366,7 @@ GameObject:
   - component: {fileID: 1177660989390118248}
   - component: {fileID: 4381418594838649095}
   - component: {fileID: 2521426770891433187}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,4 +458,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 6335096789464827004, guid: a3516ad07c1efdb47a3408133b7fd4dc, type: 3}
   firePoint: {fileID: 6772290935467734553}
-  fireForce: 20
+  fireForce: 45

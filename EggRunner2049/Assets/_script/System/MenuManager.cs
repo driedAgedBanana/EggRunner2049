@@ -58,6 +58,7 @@ public class MenuManager : MonoBehaviour
     public void ToArena()
     {
         SceneManager.LoadScene("Arena");
+        Time.timeScale = 1f;
     }
 
     public void Quit()
