@@ -56,6 +56,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Text and UI")]
     public TextMeshProUGUI currentEggs;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip shootingClip;
+    public AudioClip dashingClip;
+    public AudioClip teleportClip;
+
     [Header("Firemodes")]
     private bool _singleMode;
     private bool _trippleMode;
@@ -81,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (trailRenderer != null)
             trailRenderer.emitting = false;
+
+        audioSource.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -92,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            audioSource.PlayOneShot(shootingClip);
             weapon.Fire();
         }
 
@@ -249,6 +258,8 @@ public class PlayerMovement : MonoBehaviour
         float originalSpeed = _moveSpeed;
         _moveSpeed = dashForce;
 
+        audioSource.PlayOneShot(dashingClip);
+
         dashIcon.gameObject.SetActive(false);
         yield return new WaitForSeconds(dashDuration);
 
@@ -300,6 +311,7 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
+        audioSource.PlayOneShot(teleportClip);
         teleport.TeleportPlayer();
 
         // Fade in
