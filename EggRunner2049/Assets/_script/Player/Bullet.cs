@@ -11,8 +11,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Bullet"))
+            return;
         Destroy(gameObject);
-
-        //Add damage here later on
     }
 }

@@ -42,5 +42,11 @@ public class Collectibles : MonoBehaviour
                 Destroy(gameObject); // Egg disappears after use
             }
         }
+
+        else if (collision.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 }

@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 3276329965708532206}
   groundZone: {fileID: 0}
+  randomPos: {x: 0, y: 0}
 --- !u!114 &3226737443922738272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,15 +81,16 @@ MonoBehaviour:
   emptyHeart: {fileID: 21300000, guid: 1ff92e56c11940649b067ff48a6c3094, type: 2}
   _extraLifeEggsCollected: 0
   _maxHealth: 5
-  dashForce: 25
-  dashDuration: 0.15
-  dashCooldown: 1.2
+  dashForce: 45
+  dashDuration: 0.19
+  dashCooldown: 0
   trailRenderer: {fileID: 3615271070310641324}
   wingedBoots: {fileID: 0}
   _extraDashEggsCollected: 0
   _newDashCoolDown: 0.3
   teleport: {fileID: 588658938245282539}
-  _teleportCoolDown: 2
+  _teleportCoolDown: 10
+  teleportImage: {fileID: 0}
   currentEggs: {fileID: 0}
 --- !u!212 &7779649482419871813
 SpriteRenderer:
@@ -349,7 +351,7 @@ Transform:
   m_GameObject: {fileID: 3304874444304818001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.62, z: 0}
+  m_LocalPosition: {x: 0, y: 0.58, z: 0}
   m_LocalScale: {x: 4.828585, y: 1.7488632, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

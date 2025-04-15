@@ -55,6 +55,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Text and UI")]
     public TextMeshProUGUI currentEggs;
 
+    [Header("Firemodes")]
+    private bool _singleMode;
+    private bool _trippleMode;
+    private bool _hasToggled;
+
     private void Start()
     {
         _isAlive = true;
@@ -65,6 +70,10 @@ public class PlayerMovement : MonoBehaviour
         currentCoolDown = dashCooldown;
         wingedBoots.gameObject.SetActive(false);
         teleportImage.gameObject.SetActive(true);
+
+        _singleMode = true;
+        _trippleMode = false;
+        _hasToggled = false;
 
         currentEggs.text = "Ovum Tenes: 0";
 
@@ -147,17 +156,19 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    public void TakeDamageAndDie()
+
+    public void TakeDamage(int amount = 1)
     {
-        _currentHealth--;
-
-        if (_currentHealth <= -1)
-        {
-            _isAlive = false;
-            GameManager.Instance.ShowDeathScreen();
-        }
-
+        _currentHealth -= amount;
+        if (_currentHealth < 0) Die();
     }
+
+    private void Die()
+    {
+        _isAlive = false;
+        GameManager.Instance.ShowDeathScreen();
+    }
+
 
     public void HealPlayer(int amount)
     {
@@ -213,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy"))
         {
-            TakeDamageAndDie();
+            TakeDamage();
         }
     }
 
